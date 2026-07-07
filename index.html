@@ -4,9 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Darts Training App</title>
+    <!-- We laden Tailwind via het officiële script voor de opmaak -->
+    <script src="https://tailwindcss.com"></script>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </head>
+  <body class="bg-slate-50 min-h-screen flex flex-col justify-between font-sans">
+    
+    <nav class="bg-slate-800 text-white p-4 shadow-md">
+      <div class="max-w-6xl mx-auto flex justify-between items-center">
+        <a href="#" class="text-xl font-bold tracking-wider">🎯 DartsApp</a>
+      </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-6">
+      <div id="root" class="w-full flex justify-center"></div>
+    </main>
+
+    <footer class="bg-slate-900 text-gray-400 text-center py-4 text-xs border-t border-slate-800">
+      <p>&copy; 2026 Darts Training App. Alle rechten voorbehouden.</p>
+    </footer>
+
+    <!-- Gecorrigeerd pad: we verwijzen direct naar App.js in de hoofdmap -->
+    <script type="module" src="/App.js"></script>
+  </body>
 </html>
