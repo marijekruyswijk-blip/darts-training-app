@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darts Training App</title>
-  <!-- Gecorrigeerde Tailwind CSS CDN koppeling -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tailwind CSS CDN koppeling voor de styling -->
+  <script src="https://tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col justify-between font-sans">
 
@@ -21,7 +21,7 @@
     </div>
   </nav>
 
-  <!-- Hoofdinhoud: Vite en React koppelen de code uit App.js automatisch in deze root div -->
+  <!-- Hoofdinhoud: de container waar de app in wordt geladen -->
   <main class="flex-grow flex items-center justify-center p-6">
     <div id="root" class="w-full flex justify-center"></div>
   </main>
@@ -30,6 +30,9 @@
   <footer class="bg-slate-900 text-gray-400 text-center py-4 text-xs border-t border-slate-800">
     <p>&copy; 2026 Darts Training App. Alle rechten voorbehouden.</p>
   </footer>
+
+  <!-- DIT SCRIPT ZORGT ERVOOR DAT DE APP KAN WORDEN GEKLIKT (REACT STARTEN) -->
+  <script type="module" src="/src/main.jsx"></script>
 
 </body>
 </html>
