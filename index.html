@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darts Training App</title>
-  <!-- Tailwind CSS voor Styling -->
+  <!-- Bibliotheken inladen in de head -->
   <script src="https://tailwindcss.com"></script>
-  <!-- React & Babel direct via CDN laden (voorkomt import fouten) -->
   <script src="https://unpkg.com" crossorigin></script>
   <script src="https://unpkg.com" crossorigin></script>
   <script src="https://unpkg.com"></script>
@@ -30,7 +29,7 @@
     <p>&copy; 2026 Darts Training App. Alle rechten voorbehouden.</p>
   </footer>
 
-  <!-- React Code direct uitvoeren via Babel -->
+  <!-- DE RECORRIGEERDE PLAATSING VAN DE CODE (ALTIJD ONDERAAN DE BODY) -->
   <script type="text/babel">
     const { useState } = React;
 
@@ -77,46 +76,46 @@
       };
 
       return (
-        <div class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border border-gray-100">
-          <h1 class="text-3xl font-extrabold text-slate-800 mb-2">🎯 Darts Training</h1>
-          <p class="text-xs text-gray-400 mb-6 uppercase tracking-widest font-semibold">X01 Score Tracker</p>
+        <div className="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border border-gray-100">
+          <h1 className="text-3xl font-extrabold text-slate-800 mb-2">🎯 Darts Training</h1>
+          <p className="text-xs text-gray-400 mb-6 uppercase tracking-widest font-semibold">X01 Score Tracker</p>
 
-          <div class="bg-slate-900 text-white rounded-2xl py-8 mb-6 shadow-inner relative overflow-hidden">
-            <div class="text-6xl font-black tracking-tight">{score}</div>
-            <div class="text-xs text-slate-400 mt-1 font-medium">RESTERENDE PUNTEN</div>
+          <div className="bg-slate-900 text-white rounded-2xl py-8 mb-6 shadow-inner relative overflow-hidden">
+            <div className="text-6xl font-black tracking-tight">{score}</div>
+            <div className="text-xs text-slate-400 mt-1 font-medium">RESTERENDE PUNTEN</div>
           </div>
 
-          <div class="grid grid-cols-2 gap-4 mb-6">
-            <div class="bg-slate-50 p-3 rounded-xl border border-gray-100">
-              <div class="text-2xl font-bold text-slate-700">
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-slate-50 p-3 rounded-xl border border-gray-100">
+              <div className="text-2xl font-bold text-slate-700">
                 {history.length > 0 ? (history.reduce((a, b) => a + b, 0) / history.length).toFixed(1) : "0.0"}
               </div>
-              <div class="text-xxs text-gray-400 uppercase font-bold tracking-wider">Gemiddelde</div>
+              <div className="text-xs text-gray-400 uppercase font-bold tracking-wider">Gemiddelde</div>
             </div>
-            <div class="bg-slate-50 p-3 rounded-xl border border-gray-100">
-              <div class="text-2xl font-bold text-slate-700">{history.length}</div>
-              <div class="text-xxs text-gray-400 uppercase font-bold tracking-wider">Beurten</div>
+            <div className="bg-slate-50 p-3 rounded-xl border border-gray-100">
+              <div className="text-2xl font-bold text-slate-700">{history.length}</div>
+              <div class="text-xs text-gray-400 uppercase font-bold tracking-wider">Beurten</div>
             </div>
           </div>
 
-          <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 mb-6 text-sm text-blue-700 font-medium">
-            💡 <span class="font-bold">Advies:</span> {getCheckoutTip(score)}
+          <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 mb-6 text-sm text-blue-700 font-medium">
+            💡 <span className="font-bold">Advies:</span> {getCheckoutTip(score)}
           </div>
 
-          <form onSubmit={handleSubmit} class="mb-4">
+          <form onSubmit={handleSubmit} className="mb-4">
             <input
               type="number"
               value={turnInput}
               onChange={(e) => setTurnInput(e.target.value)}
               placeholder="Voer beurt-score in (bijv. 60)"
-              class="w-full text-center border-2 border-gray-200 rounded-xl py-3 px-4 text-lg font-semibold focus:outline-none focus:border-blue-500 transition mb-3"
+              className="w-full text-center border-2 border-gray-200 rounded-xl py-3 px-4 text-lg font-semibold focus:outline-none focus:border-blue-500 transition mb-3"
             />
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md">
+            <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl transition shadow-md">
               Score Aftrekken
             </button>
           </form>
 
-          <button onClick={() => { setScore(501); setHistory([]); }} class="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl text-sm transition">
+          <button onClick={() => { setScore(501); setHistory([]); }} className="w-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl text-sm transition">
             Herstart (501)
           </button>
         </div>
