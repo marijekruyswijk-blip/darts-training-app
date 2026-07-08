@@ -1,176 +1,59 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Darts Checkout Training</title>
-  <!-- Officiële Tailwind CSS via CDN -->
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Darts Checkout Training</title>
   <script src="https://tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 min-h-screen flex flex-col justify-between font-sans text-slate-100 antialiased selection:bg-emerald-500/30">
-
-  <!-- Navigatiebalk -->
-  <nav class="bg-slate-900/80 backdrop-blur-md text-white p-4 sticky top-0 z-50 border-b border-slate-800/60 shadow-lg">
-    <div class="max-w-6xl mx-auto flex justify-between items-center">
-      <a href="#" class="text-lg font-black tracking-wider bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent flex items-center gap-2">
-        <span>🧠</span> DARTS CHECKOUT PRO
-      </a>
-    </div>
-  </nav>
-
-  <!-- Hoofdcontainer -->
-  <main class="flex-grow flex items-center justify-center p-4 relative overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/60 via-slate-950 to-slate-950">
-    <div id="root" class="w-full flex justify-center relative z-10">
-      
-      <!-- TRAINING CARD -->
-      <div class="bg-slate-900/90 backdrop-blur-lg p-6 sm:p-8 rounded-3xl shadow-2xl text-center max-w-md w-full border border-slate-800/80 relative overflow-hidden">
-        
-        <h1 class="text-2xl font-black text-white tracking-tight mb-1 flex justify-center items-center gap-2">
-          🎯 Finish Trainer
-        </h1>
-        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-6">Slijp je dartskennis aan</p>
-
-        <!-- Score & Streak Tellers -->
-        <div class="grid grid-cols-2 gap-3 mb-6">
-          <div class="bg-slate-950/60 border border-slate-800/50 rounded-2xl p-3 flex flex-col items-center justify-center">
-            <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-0.5">Totaal Goed</span>
-            <span id="correctCounter" class="text-xl font-black text-emerald-400">0</span>
-          </div>
-          <div class="bg-slate-950/60 border border-slate-800/50 rounded-2xl p-3 flex flex-col items-center justify-center">
-            <span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-0.5">🔥 Win Streak</span>
-            <span id="streakCounter" class="text-xl font-black text-orange-400">0</span>
-          </div>
-        </div>
-
-        <!-- Niveau Selector -->
-        <div class="bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/60 grid grid-cols-3 gap-1 mb-6">
-          <button onclick="setLevel('beginner')" id="btn-beg" class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-black py-2.5 rounded-xl transition duration-300">Beginner</button>
-          <button onclick="setLevel('intermediate')" id="btn-int" class="text-slate-400 hover:text-white text-xs font-bold py-2.5 rounded-xl transition duration-300">Gevorderd</button>
-          <button onclick="setLevel('expert')" id="btn-exp" class="text-slate-400 hover:text-white text-xs font-bold py-2.5 rounded-xl transition duration-300">Expert</button>
-        </div>
-
-        <!-- Target Display Box -->
-        <div class="bg-gradient-to-b from-slate-950 to-slate-900 rounded-2xl py-8 mb-4 border border-slate-800/80 shadow-inner flex flex-col items-center justify-center relative overflow-hidden">
-          <div class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">Gooi deze score uit:</div>
-          <div id="targetCheckout" class="text-6xl font-black text-white tracking-tighter">?</div>
-          <div id="dartCountLabel" class="text-[10px] text-emerald-400/90 font-black mt-2 tracking-wider uppercase bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">1 Dart Finish</div>
-        </div>
-
-        <!-- Volgend Target Knop -->
-        <button onclick="generateTrainingCheckout()" class="w-full bg-slate-950 border border-slate-800 hover:border-slate-700 hover:bg-slate-900 text-slate-200 font-bold py-3 px-4 rounded-xl transition duration-300 text-sm shadow-md mb-6">
-          🔄 Volgend Getal
-        </button>
-
-        <!-- Antwoord invoeren sectie -->
-        <div class="border-t border-slate-800/60 pt-5">
-          <p class="text-xs font-black text-slate-400 uppercase tracking-wider mb-3 text-left pl-1">Jouw werproute:</p>
-          <form id="guessForm" onsubmit="event.preventDefault(); checkUserGuess();" class="flex gap-2 mb-4">
-            <input id="userGuess" type="text" placeholder="Bijv: T20 D20 of D16" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl py-3 px-4 focus:outline-none focus:border-emerald-500 transition font-bold text-center text-white placeholder-slate-600 tracking-wide text-sm" autocomplete="off" required />
-            <button type="submit" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-black px-6 rounded-xl transition duration-300 text-sm tracking-wide">Check</button>
-          </form>
-          <div id="feedbackBox" class="hidden rounded-xl p-4 text-xs font-bold border transition duration-300 text-left"></div>
-        </div>
-
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 text-slate-600 text-center py-4 text-xs border-t border-slate-900/60 font-medium">
-    <p>&copy; 2026 Darts Checkout Training. Alle rechten voorbehouden.</p>
-  </footer>
-
-  <!-- Volledige JavaScript Logica -->
+  <nav class="bg-slate-900/80 backdrop-blur-md p-4 sticky top-0 z-50 border-b border-slate-800/60 shadow-lg"><div class="max-w-6xl mx-auto flex justify-between items-center"><a href="#" class="text-lg font-black tracking-wider bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent flex items-center gap-2"><span>🧠</span> DARTS CHECKOUT PRO</a></div></nav>
+  <main class="flex-grow flex items-center justify-center p-4 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-900/60 via-slate-950 to-slate-950"><div id="root" class="w-full flex justify-center relative z-10"><div class="bg-slate-900/90 backdrop-blur-lg p-6 sm:p-8 rounded-3xl shadow-2xl text-center max-w-md w-full border border-slate-800/80 relative overflow-hidden"><h1 class="text-2xl font-black text-white tracking-tight mb-1 flex justify-center items-center gap-2">🎯 Finish Trainer</h1><p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-6">Alle finishes van 2 t/m 170</p><div class="grid grid-cols-2 gap-3 mb-6"><div class="bg-slate-950/60 border border-slate-800/50 rounded-2xl p-3 flex flex-col items-center justify-center"><span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-0.5">Totaal Goed</span><span id="correctCounter" class="text-xl font-black text-emerald-400">0</span></div><div class="bg-slate-950/60 border border-slate-800/50 rounded-2xl p-3 flex flex-col items-center justify-center"><span class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-0.5">🔥 Win Streak</span><span id="streakCounter" class="text-xl font-black text-orange-400">0</span></div></div><div class="bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/60 grid grid-cols-3 gap-1 mb-6"><button onclick="setLevel('beginner')" id="btn-beg" class="bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 text-xs font-black py-2.5 rounded-xl transition duration-300 shadow-lg text-white">Beginner</button><button onclick="setLevel('intermediate')" id="btn-int" class="text-slate-400 hover:text-white text-xs font-bold py-2.5 rounded-xl transition duration-300">Gevorderd</button><button onclick="setLevel('expert')" id="btn-exp" class="text-slate-400 hover:text-white text-xs font-bold py-2.5 rounded-xl transition duration-300">Expert</button></div><div class="bg-gradient-to-b from-slate-950 to-slate-900 rounded-2xl py-8 mb-4 border border-slate-800/80 shadow-inner flex flex-col items-center justify-center relative overflow-hidden"><div class="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-1">Gooi deze score uit:</div><div id="targetCheckout" class="text-6xl font-black text-white tracking-tighter">?</div><div id="dartCountLabel" class="text-[10px] text-emerald-400/90 font-black mt-2 tracking-wider uppercase bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">1 Dart Finish</div></div><button onclick="generateTrainingCheckout()" class="w-full bg-slate-950 border border-slate-800 hover:border-slate-700 hover:bg-slate-900 text-slate-200 font-bold py-3 px-4 rounded-xl transition duration-300 text-sm shadow-md mb-6">🔄 Volgend Getal</button><div class="border-t border-slate-800/60 pt-5"><p class="text-xs font-black text-slate-400 uppercase tracking-wider mb-3 text-left pl-1">Jouw werproute:</p><form id="guessForm" onsubmit="event.preventDefault(); checkUserGuess();" class="flex gap-2 mb-4"><input id="userGuess" type="text" placeholder="Bijv: T20 D20 of D16" class="w-full bg-slate-950 border border-slate-800/80 rounded-xl py-3 px-4 focus:outline-none focus:border-emerald-500 transition font-bold text-center text-white placeholder-slate-600 tracking-wide text-sm" autocomplete="off" required /><button type="submit" class="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950 font-black px-6 rounded-xl transition duration-300 text-sm tracking-wide">Check</button></form><div id="feedbackBox" class="hidden rounded-xl p-4 text-xs font-bold border transition duration-300 text-left"></div></div></div></div></main>
+  <footer class="bg-slate-950 text-slate-600 text-center py-4 text-xs border-t border-slate-900/60 font-medium"><p>&copy; 2026 Darts Checkout Training. Alle rechten voorbehouden.</p></footer>
   <script>
-    let currentLevel = 'beginner';
-    let currentTarget = 0;
-    let correctCount = 0;
-    let streakCount = 0;
-
-    // Officiële database met combinaties
-    const checkoutRoutes = {
-      2: "D1", 4: "D2", 8: "D4", 12: "D6", 16: "D8", 20: "D10", 24: "D12", 32: "D16", 36: "D18", 40: "D20", 50: "BULLSEYE",
-      41: "S9 D16", 45: "S13 D16", 52: "S20 D16", 60: "S20 D20", 64: "T16 D8", 70: "T18 D8", 80: "T20 D10", 90: "T20 D15",
-      100: "T20 D20", 110: "T20 S10 D20", 120: "T20 T20 D10", 130: "T20 T20 D5", 140: "T20 T20 D10", 150: "T20 T18 D18", 160: "T20 T20 D20", 170: "T20 T20 BULLSEYE"
-    };
-
-    window.onload = function() {
-      generateTrainingCheckout();
-    };
-
-    function setLevel(level) {
-      currentLevel = level;
-      
-      const inactiveClass = "text-slate-400 hover:text-white text-xs font-bold py-2.5 rounded-xl transition duration-300";
-      const activeClass = "bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 text-xs font-black py-2.5 rounded-xl transition duration-300 shadow-lg text-white";
-
-      document.getElementById('btn-beg').className = inactiveClass;
-      document.getElementById('btn-int').className = inactiveClass;
-      document.getElementById('btn-exp').className = inactiveClass;
-
-      if(level === 'beginner') document.getElementById('btn-beg').className = activeClass;
-      if(level === 'intermediate') document.getElementById('btn-int').className = activeClass;
-      if(level === 'expert') document.getElementById('btn-exp').className = activeClass;
-
+    let currentLevel='beginner',currentTarget=0,correctCount=0,streakCount=0;const checkoutRoutes={};
+    function generateFullDatabase(){
+      for(let i=1;i<=20;i++){checkoutRoutes[i*2]="D"+i;}checkoutRoutes[50]="BULLSEYE";
+      const b={41:"S9 D16",42:"S10 D16",43:"S11 D16",44:"S12 D16",45:"S13 D16",46:"S14 D16",47:"S15 D16",48:"S16 D16",49:"S17 D16",51:"S11 D20",52:"S12 D20",53:"S13 D20",54:"S14 D20",55:"S15 D20",56:"S16 D20",57:"S17 D20",58:"S18 D20",59:"S19 D20",60:"S20 D20",61:"T15 D8",62:"T10 D16",63:"T13 D12",64:"T16 D8",65:"T15 D10",66:"T14 D12",67:"T17 D8",68:"T16 D10",69:"T15 D12",70:"T18 D8",71:"T13 D16",72:"T16 D12",73:"T19 D8",74:"T14 D16",75:"T17 D12",76:"T20 D8",77:"T15 D16",78:"T18 D12",79:"T13 D20",80:"T20 D10",81:"T19 D12",82:"T14 D20",83:"T17 D14",84:"T20 D12",85:"T15 D20",86:"T18 D16",87:"T17 D18",88:"T16 D20",89:"T19 D16",90:"T20 D15",91:"T17 D20",92:"T20 D16",93:"T19 D18",94:"T18 D20",95:"T19 D19",96:"T20 D18",97:"T19 D20",98:"T20 D19",99:"T19 D21",100:"T20 D20",101:"T17 S10 D20",102:"T20 S2 D20",103:"T19 S6 D20",104:"T20 S4 D20",105:"T19 S8 D20",106:"T20 S6 D20",107:"T19 S10 D20",108:"T20 S8 D20",109:"T19 S12 D20",110:"T20 T10 D10",111:"T20 S11 D20",112:"T20 T12 D8",113:"T19 T12 D10",114:"T20 T14 D6",115:"T20 T11 D11",116:"T20 T16 D4",117:"T20 T15 D6",118:"T20 T16 D5",119:"T19 T10 D16",120:"T20 T20 D10",121:"T20 T15 D8",122:"T18 T20 D7",123:"T19 T16 D9",124:"T20 T16 D8",125:"T20 T15 D10",126:"T19 T19 D6",127:"T20 T17 D8",128:"T18 T18 D10",129:"T19 T16 D11",130:"T20 T20 D5",131:"T20 T13 D16",132:"T25 T19 D25",133:"T20 T17 D11",134:"T20 T14 D16",135:"T20 T15 D15",136:"T20 T20 D8",137:"T19 T16 D16",138:"T20 T18 D12",139:"T19 T14 D20",140:"T20 T20 D10",141:"T20 T15 D18",142:"T20 T14 D20",143:"T20 T17 D16",144:"T20 T20 D12",145:"T20 T15 D20",146:"T20 T18 D16",147:"T20 T17 D18",148:"T20 T16 D20",149:"T20 T19 D16",150:"T20 T18 D18",151:"T20 T17 D20",152:"T20 T20 D16",153:"T20 T19 D18",154:"T20 T18 D20",155:"T20 T19 D19",156:"T20 T20 D18",157:"T20 T19 D20",158:"T20 T20 D19",160:"T20 T20 D20",161:"T20 T17 BULLSEYE",164:"T20 T18 BULLSEYE",167:"T20 T19 BULLSEYE",170:"T20 T20 BULLSEYE"};
+      for(const key in b){checkoutRoutes[key]=b[key];}
+    }
+    window.onload=function(){generateFullDatabase();generateTrainingCheckout();};
+    function setLevel(level){
+      currentLevel=level;
+      const ic="text-slate-400 hover:text-white text-xs font-bold py-2.5 rounded-xl transition duration-300";
+      const ac="bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 text-xs font-black py-2.5 rounded-xl transition duration-300 shadow-lg text-white";
+      document.getElementById('btn-beg').className=ic;document.getElementById('btn-int').className=ic;document.getElementById('btn-exp').className=ic;
+      if(level==='beginner')document.getElementById('btn-beg').className=ac;
+      if(level==='intermediate')document.getElementById('btn-int').className=ac;
+      if(level==='expert')document.getElementById('btn-exp').className=ac;
       generateTrainingCheckout();
     }
-
-    // SLIMME GENERATOR: Telt spaties in het antwoord om het exacte aantal pijlen te bepalen!
-    function generateTrainingCheckout() {
-      const allKeys = Object.keys(checkoutRoutes).map(Number);
-      let pool = [];
-
-      if (currentLevel === 'beginner') {
-        // Geen spaties = 1 pijl (bijv "D20")
-        pool = allKeys.filter(function(k) { return !checkoutRoutes[k].includes(" "); });
-      } else if (currentLevel === 'intermediate') {
-        // 1 spatie = 2 pijlen (bijv "S9 D16")
-        pool = allKeys.filter(function(k) { 
-          const spaces = checkoutRoutes[k].split(" ").length - 1;
-          return spaces === 1; 
-        });
-      } else {
-        // 2 spaties = 3 pijlen (bijv "T20 T20 D10")
-        pool = allKeys.filter(function(k) { 
-          const spaces = checkoutRoutes[k].split(" ").length - 1;
-          return spaces === 2; 
-        });
-      }
-
-      currentTarget = pool[Math.floor(Math.random() * pool.length)];
-      document.getElementById('targetCheckout').textContent = currentTarget;
-      
-      const label = document.getElementById('dartCountLabel');
-      if(currentLevel === 'beginner') label.textContent = "1 Dart Finish";
-      if(currentLevel === 'intermediate') label.textContent = "2 Dart Finish";
-      if(currentLevel === 'expert') label.textContent = "3 Dart Finish";
-
+    function generateTrainingCheckout(){
+      const allKeys=Object.keys(checkoutRoutes).map(Number);let pool=[];
+      if(currentLevel==='beginner'){pool=allKeys.filter(function(k){return !checkoutRoutes[k].includes(" ");});}
+      else if(currentLevel==='intermediate'){pool=allKeys.filter(function(k){return checkoutRoutes[k].split(" ").length-1===1;});}
+      else{pool=allKeys.filter(function(k){return checkoutRoutes[k].split(" ").length-1===2;});}
+      currentTarget=pool[Math.floor(Math.random()*pool.length)];
+      document.getElementById('targetCheckout').textContent=currentTarget;
+      const label=document.getElementById('dartCountLabel');
+      if(currentLevel==='beginner')label.textContent="1 Dart Finish";
+      if(currentLevel==='intermediate')label.textContent="2 Dart Finish";
+      if(currentLevel==='expert')label.textContent="3 Dart Finish";
       document.getElementById('feedbackBox').classList.add('hidden');
-      document.getElementById('userGuess').value = '';
-      document.getElementById('userGuess').focus();
+      document.getElementById('userGuess').value='';document.getElementById('userGuess').focus();
     }
-
-    function checkUserGuess() {
-      const userInput = document.getElementById('userGuess').value.trim().toUpperCase().replace(/\s+/g, ' ');
-      const correctAnswer = checkoutRoutes[currentTarget].toUpperCase();
-      const feedback = document.getElementById('feedbackBox');
-      
-      feedback.classList.remove('hidden', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400', 'bg-rose-500/10', 'border-rose-500/30', 'text-rose-400');
-      
-      if(userInput === correctAnswer) {
-        feedback.classList.add('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-400');
-        feedback.innerHTML = "🎉 <b>Correct!</b> Route vlekkeloos uitgevoerd.";
-        correctCount++;
-        streakCount++;
-      } else {
-        feedback.classList.add('bg-rose-500/10', 'border-rose-500/30', 'text-rose-400');
-        feedback.innerHTML = "❌ <b>Onjuist.</b> De juiste route is: <span class='underline font-black text-white ml-1'>" + checkoutRoutes[currentTarget] + "</span>";
-        streakCount = 0;
+    function checkUserGuess(){
+      const userInput=document.getElementById('userGuess').value.trim().toUpperCase().replace(/\s+/g,' ');
+      const correctAnswer=checkoutRoutes[currentTarget].toUpperCase(),feedback=document.getElementById('feedbackBox');
+      feedback.classList.remove('hidden','bg-emerald-500/10','border-emerald-500/30','text-emerald-400','bg-rose-500/10','border-rose-500/30','text-rose-400');
+      if(userInput===correctAnswer){
+        feedback.classList.add('bg-emerald-500/10','border-emerald-500/30','text-emerald-400');
+        feedback.innerHTML="🎉 <b>Correct!</b> Route vlekkeloos uitgevoerd.";
+        correctCount++;streakCount++;
+      }else{
+        feedback.classList.add('bg-rose-500/10','border-rose-500/30','text-rose-400');
+        feedback.innerHTML="❌ <b>Onjuist.</b> De juiste route is: <span class='underline font-black text-white ml-1'>"+checkoutRoutes[currentTarget]+"</span>";
+        streakCount=0;
       }
-
-      document.getElementById('correctCounter').textContent = correctCount;
-      document.getElementById('streakCounter').textContent = streakCount;
+      document.getElementById('correctCounter').textContent=correctCount;document.getElementById('streakCounter').textContent=streakCount;
     }
   </script>
 </body>
