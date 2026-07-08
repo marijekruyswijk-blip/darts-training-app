@@ -88,7 +88,7 @@
     let correctCount = 0;
     let streakCount = 0;
 
-    // Volledige database met combinaties
+    // Officiële database met combinaties
     const checkoutRoutes = {
       2: "D1", 4: "D2", 8: "D4", 12: "D6", 16: "D8", 20: "D10", 24: "D12", 32: "D16", 36: "D18", 40: "D20", 50: "BULLSEYE",
       41: "S9 D16", 45: "S13 D16", 52: "S20 D16", 60: "S20 D20", 64: "T16 D8", 70: "T18 D8", 80: "T20 D10", 90: "T20 D15",
@@ -116,16 +116,26 @@
       generateTrainingCheckout();
     }
 
+    // SLIMME GENERATOR: Telt spaties in het antwoord om het exacte aantal pijlen te bepalen!
     function generateTrainingCheckout() {
       const allKeys = Object.keys(checkoutRoutes).map(Number);
       let pool = [];
 
       if (currentLevel === 'beginner') {
-        pool = allKeys.filter(function(k) { return k <= 50; });
+        // Geen spaties = 1 pijl (bijv "D20")
+        pool = allKeys.filter(function(k) { return !checkoutRoutes[k].includes(" "); });
       } else if (currentLevel === 'intermediate') {
-        pool = allKeys.filter(function(k) { return k > 50 && k < 100; });
+        // 1 spatie = 2 pijlen (bijv "S9 D16")
+        pool = allKeys.filter(function(k) { 
+          const spaces = checkoutRoutes[k].split(" ").length - 1;
+          return spaces === 1; 
+        });
       } else {
-        pool = allKeys.filter(function(k) { return k >= 100; });
+        // 2 spaties = 3 pijlen (bijv "T20 T20 D10")
+        pool = allKeys.filter(function(k) { 
+          const spaces = checkoutRoutes[k].split(" ").length - 1;
+          return spaces === 2; 
+        });
       }
 
       currentTarget = pool[Math.floor(Math.random() * pool.length)];
