@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Darts Training Center</title>
-  <!-- Tailwind CSS laden via CDN -->
+  <!-- Officiële Tailwind CDN Koppeling -->
   <script src="https://tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 min-h-screen flex flex-col justify-between font-sans">
@@ -14,57 +14,24 @@
     <div class="max-w-6xl mx-auto flex justify-between items-center">
       <a href="#" class="text-xl font-bold tracking-wider">🎯 DartsApp</a>
       <div class="space-x-4 text-sm font-medium">
-        <button onclick="switchTab('score')" class="hover:text-blue-400 transition font-bold text-blue-400" id="tab-score">Scorebord</button>
-        <button onclick="switchTab('guess')" class="hover:text-blue-400 transition" id="tab-guess">Checkout Training</button>
+        <button onclick="switchTab('score')" class="hover:text-blue-400 transition" id="tab-score">Scorebord</button>
+        <button onclick="switchTab('guess')" class="hover:text-blue-400 transition font-bold text-blue-400" id="tab-guess">Checkout Training</button>
       </div>
     </div>
   </nav>
-
-      function switchTab(tab) {
-      document.getElementById('view-score').classList.add('hidden');
-      document.getElementById('view-guess').classList.add('hidden');
-      document.getElementById('tab-score').classList.remove('text-blue-400', 'font-bold');
-      document.getElementById('tab-guess').classList.remove('text-blue-400', 'font-bold');
-      
-      if(tab === 'score') {
-        document.getElementById('view-score').classList.remove('hidden');
-        document.getElementById('tab-score').classList.add('text-blue-400', 'font-bold');
-      } else {
-        document.getElementById('view-guess').classList.remove('hidden');
-        document.getElementById('tab-guess').classList.add('text-blue-400', 'font-bold');
-        
-        // Zorgt ervoor dat er direct een getal staat in plaats van een vraagteken
-        generateTrainingCheckout();
-      }
-    }
 
   <!-- Hoofdcontainer -->
   <main class="flex-grow flex items-center justify-center p-6">
     <div id="root" class="w-full flex justify-center">
       
       <!-- TAB 1: SCOREBORD -->
-      <div id="view-score" class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border border-gray-100">
+      <div id="view-score" class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border border-gray-100 hidden">
         <h1 class="text-3xl font-extrabold text-slate-800 mb-2">🎯 Darts Training</h1>
         <p class="text-xs text-gray-400 mb-6 uppercase tracking-widest font-semibold">501 Score Tracker</p>
 
         <div class="bg-slate-900 text-white rounded-2xl py-8 mb-6 shadow-inner">
           <div id="scoreDisplay" class="text-6xl font-black tracking-tight">501</div>
           <div class="text-xs text-slate-400 mt-1 font-medium">RESTERENDE PUNTEN</div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 mb-6">
-          <div class="bg-slate-50 p-3 rounded-xl border border-gray-100">
-            <div id="averageDisplay" class="text-2xl font-bold text-slate-700">0.0</div>
-            <div class="text-xs text-gray-400 uppercase font-bold tracking-wider">Gemiddelde</div>
-          </div>
-          <div class="bg-slate-50 p-3 rounded-xl border border-gray-100">
-            <div id="turnsDisplay" class="text-2xl font-bold text-slate-700">0</div>
-            <div class="text-xs text-gray-400 uppercase font-bold tracking-wider">Beurten</div>
-          </div>
-        </div>
-
-        <div class="bg-blue-50 border border-blue-100 rounded-xl p-3 mb-6 text-sm text-blue-700 font-medium">
-          💡 <span class="font-bold">Advies:</span> <span id="checkoutTip">Scoor zoveel mogelijk!</span>
         </div>
 
         <form id="scoreForm" class="mb-4">
@@ -75,9 +42,15 @@
       </div>
 
       <!-- TAB 2: CHECKOUT TRAINING -->
-      <div id="view-guess" class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border border-gray-100 hidden">
+      <div id="view-guess" class="bg-white p-8 rounded-2xl shadow-xl text-center max-w-md w-full border border-gray-100">
         <h1 class="text-3xl font-extrabold text-slate-800 mb-2">🧠 Checkout Training</h1>
         <p class="text-xs text-gray-400 mb-6 uppercase tracking-widest font-semibold">Leer finishen als een pro</p>
+
+        <!-- Score & Streak Teller -->
+        <div class="bg-slate-50 border border-gray-200 rounded-xl p-2 mb-4 text-sm text-slate-700 font-bold flex justify-around">
+          <div>🎯 Goed: <span id="correctCounter" class="text-green-600">0</span></div>
+          <div>🔥 Reeks: <span id="streakCounter" class="text-orange-500">0</span></div>
+        </div>
 
         <!-- Niveau Selector -->
         <div class="grid grid-cols-3 gap-2 mb-6">
@@ -109,12 +82,26 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-slate-900 text-gray-400 text-center py-4 text-xs border-t border-slate-800">
-    <p>&copy; 2026 Darts Training App. Alle rechten voorbehouden.</p>
-  </footer>
-
   <script>
+    // --- STATE ---
+    let currentLevel = 'beginner';
+    let currentTarget = 0;
+    let correctCount = 0;
+    let streakCount = 0;
+
+    // --- CHECKOUT DATABASE ---
+    const checkoutRoutes = {
+      2: "D1", 4: "D2", 8: "D4", 12: "D6", 16: "D8", 20: "D10", 24: "D12", 32: "D16", 36: "D18", 40: "D20", 50: "BULLSEYE",
+      41: "S9 D16", 45: "S13 D16", 52: "S20 D16", 60: "S20 D20", 64: "T16 D8", 70: "T18 D8", 80: "T20 D10", 90: "T20 D15",
+      100: "T20 D20", 110: "T20 S10 D20", 120: "T20 T20 D10", 130: "T20 T20 D5", 140: "T20 T20 D10", 150: "T20 T18 D18", 160: "T20 T20 D20", 170: "T20 T20 BULLSEYE"
+    };
+
+    // --- INITIALISATIE ---
+    // REPARATIE: Start direct de generator op zodat er nooit meer een vraagteken staat!
+    window.onload = () => {
+        generateTrainingCheckout();
+    };
+
     // --- TAB NAVIGATIE ---
     function switchTab(tab) {
       document.getElementById('view-score').classList.add('hidden');
@@ -132,16 +119,6 @@
       }
     }
 
-    // --- CHECKOUT DATABASE ---
-    const checkoutRoutes = {
-      2: "D1", 4: "D2", 8: "D4", 12: "D6", 16: "D8", 20: "D10", 24: "D12", 32: "D16", 36: "D18", 40: "D20", 50: "BULLSEYE",
-      41: "S9 D16", 45: "S13 D16", 52: "S20 D16", 60: "S20 D20", 64: "T16 D8", 70: "T18 D8", 80: "T20 D10", 90: "T20 D15",
-      100: "T20 D20", 110: "T20 S10 D20", 120: "T20 T20 D10", 130: "T20 T20 D5", 140: "T20 T20 D10", 150: "T20 T18 D18", 160: "T20 T20 D20", 170: "T20 T20 BULLSEYE"
-    };
-
-    let currentLevel = 'beginner';
-    let currentTarget = 0;
-
     // --- NIVEAU INSTELLEN ---
     function setLevel(level) {
       currentLevel = level;
@@ -156,13 +133,11 @@
       generateTrainingCheckout();
     }
 
-    // --- DYNAMISCHE GENERATOR (ZONDER ARRAYS) ---
+    // --- DYNAMISCHE GENERATOR ---
     function generateTrainingCheckout() {
-      // De computer haalt alle beschikbare getallen direct uit de database-sleutels
       const allKeys = Object.keys(checkoutRoutes).map(Number);
       let pool = [];
 
-      // Automatisch filteren op basis van de hoogte van de finish
       if (currentLevel === 'beginner') {
         pool = allKeys.filter(k => k <= 50);
       } else if (currentLevel === 'intermediate') {
@@ -194,86 +169,17 @@
       if(input === correctAnswer) {
         feedback.classList.add('bg-green-50', 'text-green-700');
         feedback.innerHTML = "🎉 <b>Correct!</b> Je kent je finishes perfect.";
+        correctCount++;
+        streakCount++;
       } else {
-feedback.classList.add('bg-red-50', 'text-red-700');feedback.innerHTML = "❌ Onjuist. De juiste route is: " + checkoutRoutes[currentTarget] + "";}}
+        feedback.classList.add('bg-red-50', 'text-red-700');
+        feedback.innerHTML = "❌ <b>Onjuist.</b> De juiste route is: <b class='underline'>" + checkoutRoutes[currentTarget] + "</b>";
+        streakCount = 0;
+      }
 
-        // --- SCOREBOARD LOGICA ---
-    let score = 501;
-    let history = [];
-    
-    // Selecteer de HTML elementen uit de pagina
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const averageDisplay = document.getElementById('averageDisplay');
-    const turnsDisplay = document.getElementById('turnsDisplay');
-    const checkoutTip = document.getElementById('checkoutTip');
-    const turnInput = document.getElementById('turnInput');
-    const scoreForm = document.getElementById('scoreForm');
-
-    // Functie die bepaalt welk advies of welke checkout getoond wordt
-    function getCheckoutTip(currentScore) {
-      if (currentScore > 170) return "Scoor zoveel mogelijk (Rijg de T20's aaneen!)";
-      if (checkoutRoutes[currentScore]) return checkoutRoutes[currentScore];
-      if (currentScore % 2 === 0 && currentScore <= 40) return "Double " + (currentScore / 2);
-      return "Zet hem weg op een mooie dubbel";
+      document.getElementById('correctCounter').textContent = correctCount;
+      document.getElementById('streakCounter').textContent = streakCount;
     }
-
-    // Luister naar het formulier als de darter op 'Score Aftrekken' klikt
-    scoreForm.addEventListener('submit', (e) => {
-      e.preventDefault(); // Voorkom dat de pagina ververst
-      
-      const points = parseInt(turnInput.value, 10);
-
-      // Controleer op ongeldige invoer (hoger dan 180 of onder de 0)
-      if (isNaN(points) || points < 0 || points > 180) {
-        alert("Voer een geldige score in tussen 0 en 180.");
-        turnInput.value = '';
-        return;
-      }
-
-      // Bust logica: Je mag niet onder de 0 eindigen en je mag niet op exact 1 overblijven (je moet finishen op een dubbel)
-      if (score - points < 0 || score - points === 1) {
-        alert("Bust! (No Score)");
-        history.unshift(0); // De beurt telt mee voor het gemiddelde, maar met 0 punten
-        turnInput.value = '';
-        
-        // Update alleen de statistieken (beurten en gemiddelde)
-        turnsDisplay.textContent = history.length;
-        const totalPoints = history.reduce((a, b) => a + b, 0);
-        averageDisplay.textContent = (totalPoints / history.length).toFixed(1);
-        return;
-      }
-
-      // Geldige worp: Score aftrekken en opslaan in de historie
-      score -= points;
-      history.unshift(points);
-      turnInput.value = '';
-
-      // Update het scorebord op het scherm
-      scoreDisplay.textContent = score;
-      turnsDisplay.textContent = history.length;
-      checkoutTip.textContent = getCheckoutTip(score);
-      
-      // Bereken het actuele 3-dart gemiddelde opnieuw
-      const totalPoints = history.reduce((a, b) => a + b, 0);
-      averageDisplay.textContent = (totalPoints / history.length).toFixed(1);
-
-      // Controleer of de leg is uitgegooid
-      if (score === 0) {
-        alert("Gefeliciteerd! Je hebt de leg uitgegooid! 🎉");
-        resetScoreboard();
-      }
-    });
-
-    // Reset functie voor het scorebord
-    function resetScoreboard() {
-      score = 501;
-      history = [];
-      scoreDisplay.textContent = 501;
-      turnsDisplay.textContent = 0;
-      averageDisplay.textContent = "0.0";
-      checkoutTip.textContent = "Scoor zoveel mogelijk!";
-      turnInput.value = '';
-    }
-
-    // Koppel de reset-knop aan de reset-functie
-    document.getElementById('resetBtn').addEventListener('click', resetScoreboard);
+  </script>
+</body>
+</html>
