@@ -20,6 +20,24 @@
     </div>
   </nav>
 
+      function switchTab(tab) {
+      document.getElementById('view-score').classList.add('hidden');
+      document.getElementById('view-guess').classList.add('hidden');
+      document.getElementById('tab-score').classList.remove('text-blue-400', 'font-bold');
+      document.getElementById('tab-guess').classList.remove('text-blue-400', 'font-bold');
+      
+      if(tab === 'score') {
+        document.getElementById('view-score').classList.remove('hidden');
+        document.getElementById('tab-score').classList.add('text-blue-400', 'font-bold');
+      } else {
+        document.getElementById('view-guess').classList.remove('hidden');
+        document.getElementById('tab-guess').classList.add('text-blue-400', 'font-bold');
+        
+        // Zorgt ervoor dat er direct een getal staat in plaats van een vraagteken
+        generateTrainingCheckout();
+      }
+    }
+
   <!-- Hoofdcontainer -->
   <main class="flex-grow flex items-center justify-center p-6">
     <div id="root" class="w-full flex justify-center">
